@@ -1,0 +1,14 @@
+<div class="todo">
+  <p class="todo__title">
+    {{ todo().title }}
+  </p>
+  <div class="todo__actions">
+    @if (todo().completed) {
+      <button (click)="onToggleCompleted(todo().id)">Toggle Completed</button>
+    }
+    @if (todo().completed) {
+      <button (click)="onEdit(todo().id)">Edit</button>
+    }
+    <button (click)="onDelete(todo().id)">Delete</button>
+  </div>
+</div>
