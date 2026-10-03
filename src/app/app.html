@@ -1,5 +1,7 @@
-@for (todo of $todos | async; track todo.id) {
-  <app-todo [todo]="todo" />
-}
+<app-title-bar></app-title-bar>
 
-<router-outlet />
+@for (todo of $todos | async; track todo.id) {
+  <app-todo [todo]="todo"
+            (delete)="onDelete($event)"
+            (toggleCompleted)="onToggleCompleted($event)" />
+}
