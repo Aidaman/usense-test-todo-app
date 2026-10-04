@@ -6,7 +6,6 @@ import { MatFormField, MatInput, MatLabel } from '@angular/material/input';
 import { MatOption, MatSelect } from '@angular/material/select';
 import { MatButton } from '@angular/material/button';
 import { TitleCasePipe } from '@angular/common';
-import { Todo } from '../../models/todo';
 
 export interface TodoFormModel {
   title: string;

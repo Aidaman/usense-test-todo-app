@@ -29,7 +29,7 @@ export class TodoComponent {
     this.toggleCompleted.emit(todo);
   }
 
-  protected onEdit(id: number) {
+  protected onEdit() {
     const dialogRef = this.dialog.open(
       TodoEditorDialog,
       { width: '400px', height: '335px', data: this.todo() }
