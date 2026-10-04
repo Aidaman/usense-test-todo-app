@@ -1,7 +1,23 @@
 <header class="header">
   <h2 class="header__title">
-    A Todo App
+    {{ 'а Todo App' | titlecase }}
   </h2>
+
+  <div class="header__filters">
+    <mat-button-toggle-group
+      name="completed"
+      [hideSingleSelectionIndicator]="true"
+    >
+      @for (enumEntry of filterEnumEntries; track enumEntry) {
+        <mat-button-toggle
+          appearance="standard"
+          [value]="enumEntry"
+          (change)="onFilterChange(enumEntry)"
+        >{{ enumEntry | titlecase }}</mat-button-toggle>
+      }
+    </mat-button-toggle-group>
+  </div>
+
   <div class="header__actions">
     <label class="header__actions-todo-label">
       New Todo
