@@ -29,7 +29,7 @@ export class TodoService {
 
   public createTodo(newTodo: CreateTodoDTO) {
     return this.http
-      .post<Todo>(`${this.jsonPlaceholderUrl}`, newTodo)
+      .post<Todo>(`${this.jsonPlaceholderUrl}`, { ...newTodo, })
       .subscribe((todo) =>
         this.todosSubject.next([...this.todosSubject.getValue(), { ...todo, id: this.localId++ }]),
       );
