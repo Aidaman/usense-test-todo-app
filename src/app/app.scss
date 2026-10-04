@@ -4,12 +4,20 @@
   width: 100%;
   height: 100%;
 
+  .content-container {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
   &--empty {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
+    flex: 1;
     height: 100%;
     width: 100%;
 
