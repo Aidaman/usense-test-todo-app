@@ -3,6 +3,10 @@
     A Todo App
   </h2>
   <div class="header__actions">
-    <button mat-raised-button><mat-icon>add</mat-icon>Add Todo</button>
+    <label class="header__actions-todo-label">
+      New Todo
+      <input type="text" class="header__actions-todo-input" [formField]="todoForm.title">
+    </label>
+    <button mat-icon-button (click)="onAddTodo()"><mat-icon>add</mat-icon></button>
   </div>
 </header>
