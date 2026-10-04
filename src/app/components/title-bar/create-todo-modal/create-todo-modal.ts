@@ -38,7 +38,7 @@ export class CreateTodoModal {
   });
 
   protected readonly todoForm = form(this.todoModel);
-  protected readonly priorityEnumEntries = Object.values(TodoPriorities);
+  protected readonly priorityEnumEntries = Object.values(TodoPriorities).filter(value => value !== TodoPriorities.All);
 
   protected onSave(): void {
     if (this.todoForm().valid()) {
