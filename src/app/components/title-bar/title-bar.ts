@@ -8,21 +8,17 @@ import { TitleCasePipe } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateTodoModal, NewTodoData } from './create-todo-modal/create-todo-modal';
 import { TodoPriorities } from '../../models/priority.enum';
+import { FilterService } from '../../services/filter.service';
 
 @Component({
-  imports: [
-    MatIcon,
-    MatButtonToggleGroup,
-    MatButtonToggle,
-    TitleCasePipe,
-    MatButton,
-  ],
+  imports: [MatIcon, MatButtonToggleGroup, MatButtonToggle, TitleCasePipe, MatButton],
   selector: 'app-title-bar',
   styleUrl: './title-bar.scss',
   templateUrl: './title-bar.html',
 })
 export class TitleBar {
   private readonly todoService: TodoService = inject(TodoService);
+  private readonly filterService: FilterService = inject(FilterService);
   private readonly dialog: MatDialog = inject(MatDialog);
 
   protected readonly statusFilterEnumEntries = Object.values(TodoStatus);
@@ -39,10 +35,10 @@ export class TitleBar {
   }
 
   protected onStatusFilterChange(newFilterValue: TodoStatus): void {
-    this.todoService.completedFilter = newFilterValue;
+    this.filterService.completedFilter.next(newFilterValue);
   }
 
   protected onPriorityFilterChange(newFilterValue: TodoPriorities): void {
-    this.todoService.priorityFilter = newFilterValue;
+    this.filterService.priorityFilter.next(newFilterValue);
   }
 }
