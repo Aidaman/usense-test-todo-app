@@ -10,7 +10,7 @@
     <mat-label>Priority</mat-label>
     <mat-select [formField]="todoForm.priority">
       @for (priority of priorityEnumEntries; track priority) {
-      <mat-option [value]="priority">{{ priority | titlecase }}</mat-option>
+        <mat-option [value]="priority">{{ priority | titlecase }}</mat-option>
       }
     </mat-select>
   </mat-form-field>
@@ -18,5 +18,7 @@
 
 <mat-dialog-actions align="end">
   <button mat-button (click)="onCancel()">Cancel</button>
-  <button mat-flat-button color="primary" [disabled]="todoForm().invalid()" (click)="onSave()">{{ data ? 'Confirm' : 'Create' }}</button>
+  <button mat-flat-button color="primary" [disabled]="todoForm().invalid()"
+          (click)="onSave()">{{ data ? 'Confirm' : 'Create' }}
+  </button>
 </mat-dialog-actions>

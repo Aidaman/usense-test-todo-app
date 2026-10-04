@@ -1,6 +1,6 @@
 import { inject, Service } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Todo, CreateTodoDTO } from '../models/todo';
+import { CreateTodoDTO, Todo } from '../models/todo';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { TodoPriorities } from '../models/priority.enum';
 
@@ -22,34 +22,26 @@ export class TodoService {
   }
 
   private getRandomPriority(): TodoPriorities {
-    const priorities = [
-      TodoPriorities.Low,
-      TodoPriorities.Medium,
-      TodoPriorities.High,
-    ];
+    const priorities = [TodoPriorities.Low, TodoPriorities.Medium, TodoPriorities.High];
 
     return priorities[Math.floor(Math.random() * priorities.length)];
   }
 
   private populateTodosWithPriority(todos: Todo[]): Todo[] {
-    return todos.map(todo => ({ ...todo, priority: todo.priority ?? this.getRandomPriority() }));
+    return todos.map((todo) => ({ ...todo, priority: todo.priority ?? this.getRandomPriority() }));
   }
 
   public getUserTodos(userId: number) {
     return this.http
       .get<Todo[]>(`${this.jsonPlaceholderUrl}?userId=${userId}`)
-      .pipe(
-        map((todos) => this.populateTodosWithPriority(todos))
-      )
+      .pipe(map((todos) => this.populateTodosWithPriority(todos)))
       .subscribe((todos) => this.todosSubject.next(todos));
   }
 
   public getAllTodos() {
     return this.http
       .get<Todo[]>(`${this.jsonPlaceholderUrl}`)
-      .pipe(
-        map((todos) => this.populateTodosWithPriority(todos))
-      )
+      .pipe(map((todos) => this.populateTodosWithPriority(todos)))
       .subscribe((todos) => this.todosSubject.next(todos));
   }
 
@@ -79,5 +71,4 @@ export class TodoService {
         );
       });
   }
-
 }

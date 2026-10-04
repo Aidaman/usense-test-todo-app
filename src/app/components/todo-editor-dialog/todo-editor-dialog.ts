@@ -1,6 +1,12 @@
 import { Component, inject, signal } from '@angular/core';
 import { form, FormField } from '@angular/forms/signals';
-import { MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef, MatDialogTitle } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialogActions,
+  MatDialogContent,
+  MatDialogRef,
+  MatDialogTitle,
+} from '@angular/material/dialog';
 import { TodoPriorities } from '../../models/priority.enum';
 import { MatFormField, MatInput, MatLabel } from '@angular/material/input';
 import { MatOption, MatSelect } from '@angular/material/select';

@@ -30,10 +30,11 @@ export class TodoComponent {
   }
 
   protected onEdit() {
-    const dialogRef = this.dialog.open(
-      TodoEditorDialog,
-      { width: '400px', height: '335px', data: this.todo() }
-    );
+    const dialogRef = this.dialog.open(TodoEditorDialog, {
+      width: '400px',
+      height: '335px',
+      data: this.todo(),
+    });
 
     dialogRef.afterClosed().subscribe((newTodo) => {
       if (newTodo) {

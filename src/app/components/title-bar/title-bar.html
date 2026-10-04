@@ -12,7 +12,8 @@
         <mat-button-toggle
           [value]="status"
           (change)="onStatusFilterChange(status)"
-        >{{ status | titlecase }}</mat-button-toggle>
+        >{{ status | titlecase }}
+        </mat-button-toggle>
       }
     </mat-button-toggle-group>
     <mat-button-toggle-group
@@ -23,12 +24,16 @@
         <mat-button-toggle
           [value]="priority"
           (change)="onPriorityFilterChange(priority)"
-        >{{ priority | titlecase }}</mat-button-toggle>
+        >{{ priority | titlecase }}
+        </mat-button-toggle>
       }
     </mat-button-toggle-group>
   </div>
 
   <div class="header__actions">
-    <button mat-button (click)="onAddTodo()"><mat-icon>add</mat-icon> Create Todo</button>
+    <button mat-button (click)="onAddTodo()">
+      <mat-icon>add</mat-icon>
+      Create Todo
+    </button>
   </div>
 </header>

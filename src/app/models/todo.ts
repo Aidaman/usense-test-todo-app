@@ -6,7 +6,7 @@ export type Todo = {
   title: string;
   completed: boolean;
   priority: TodoPriorities;
-}
+};
 
 export type CreateTodoDTO = {
   userId: number;
