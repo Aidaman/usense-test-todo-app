@@ -6,7 +6,7 @@ import { MatButtonToggle, MatButtonToggleGroup } from '@angular/material/button-
 import { TodoStatus } from '../../models/status.enum';
 import { TitleCasePipe } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
-import { CreateTodoModal, NewTodoData } from './create-todo-modal/create-todo-modal';
+import { TodoEditorDialog, TodoFormModel } from '../todo-editor-dialog/todo-editor-dialog';
 import { TodoPriorities } from '../../models/priority.enum';
 import { FilterService } from '../../services/filter.service';
 
@@ -25,9 +25,9 @@ export class TitleBar {
   protected readonly priorityFilterEnumEntries = Object.values(TodoPriorities);
 
   protected onAddTodo(): void {
-    const dialogRef = this.dialog.open(CreateTodoModal, { width: '400px', height: '335px' });
+    const dialogRef = this.dialog.open(TodoEditorDialog, { width: '400px', height: '335px' });
 
-    dialogRef.afterClosed().subscribe((newTodo: NewTodoData) => {
+    dialogRef.afterClosed().subscribe((newTodo: TodoFormModel) => {
       if (newTodo) {
         this.todoService.createTodo({ ...newTodo, userId: 1 });
       }

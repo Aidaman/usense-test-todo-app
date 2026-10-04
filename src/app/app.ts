@@ -32,4 +32,8 @@ export class App {
   protected onToggleCompleted(todo: Todo) {
     this.todoService.updateTodo(todo);
   }
+
+  protected onEdit(todo: Todo) {
+    this.todoService.updateTodo(todo);
+  }
 }

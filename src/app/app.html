@@ -2,17 +2,16 @@
   <app-title-bar></app-title-bar>
 
   @for (todo of $todos | async; track todo.id) {
-    <app-todo [todo]="todo"
-              (delete)="onDelete($event)"
-              (toggleCompleted)="onToggleCompleted($event)" />
+  <app-todo [todo]="todo" (delete)="onDelete($event)" (toggleCompleted)="onToggleCompleted($event)"
+    (edit)="onEdit($event)" />
   } @empty {
-    <hgroup class="body--empty">
-      <h2 class="body--empty__title">
-        Nothing here yet :(
-      </h2>
-      <p class="body--empty__subtitle">
-        Choose user ID or create a Todo
-      </p>
-    </hgroup>
+  <hgroup class="body--empty">
+    <h2 class="body--empty__title">
+      Nothing here yet :(
+    </h2>
+    <p class="body--empty__subtitle">
+      Choose user ID or create a Todo
+    </p>
+  </hgroup>
   }
 </div>

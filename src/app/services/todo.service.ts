@@ -72,11 +72,12 @@ export class TodoService {
   public updateTodo(newTodo: Todo) {
     return this.http
       .patch<Todo>(`${this.jsonPlaceholderUrl}/${newTodo.id}`, newTodo)
-      .subscribe((todoX) =>
+      .subscribe((todoX) => {
+        console.log(todoX);
         this.todosSubject.next(
           this.todosSubject.getValue().map((todo) => (todo.id === todoX.id ? todoX : todo)),
-        ),
-      );
+        );
+      });
   }
 
 }

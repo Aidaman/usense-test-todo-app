@@ -1,29 +1,29 @@
 <div class="todo">
-  <input class="todo__completion-check" type="checkbox" [(ngModel)]="todo().completed" (ngModelChange)="onToggleCompleted(todo())">
-  <p class="todo__title" [ngClass]="{'todo__title--completed': todo().completed}">
+  <input
+    class="todo__completion-check"
+    type="checkbox"
+    [(ngModel)]="todo().completed"
+    (ngModelChange)="onToggleCompleted(todo())"
+  />
+  <p class="todo__title" [ngClass]="{ 'todo__title--completed': todo().completed }">
     {{ todo().title }}
-    <span class="todo__priority-chip"
-          [ngClass]="{
-            'low-priority': this.todo().priority === 'low',
-            'medium-priority': this.todo().priority === 'medium',
-            'high-priority': this.todo().priority === 'high',
-            }"
+    <span
+      class="todo__priority-chip"
+      [ngClass]="{
+        'low-priority': this.todo().priority === 'low',
+        'medium-priority': this.todo().priority === 'medium',
+        'high-priority': this.todo().priority === 'high',
+      }"
     >
       {{ todo().priority }}
     </span>
   </p>
   <div class="todo__actions">
-    @if (!todo().completed) {
-      <button mat-icon-button (click)="onEdit(todo().id)">
-        <mat-icon>
-          edit
-        </mat-icon>
-      </button>
-    }
+    <button mat-icon-button (click)="onEdit(todo().id)">
+      <mat-icon> edit</mat-icon>
+    </button>
     <button mat-icon-button (click)="onDelete(todo().id)">
-      <mat-icon>
-        remove
-      </mat-icon>
+      <mat-icon> remove</mat-icon>
     </button>
   </div>
 </div>
