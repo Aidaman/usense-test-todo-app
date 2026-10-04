@@ -14,12 +14,11 @@ import { TodoComponent } from './components/todo/todo';
 })
 export class App {
   private readonly todoService: TodoService = inject(TodoService);
-  protected readonly title = signal('usense-test-task');
 
   protected $todos: Observable<Todo[]> = this.todoService.todos$;
 
   protected onDelete(id: number) {
-    this.todoService.deleteTodo(id)
+    this.todoService.deleteTodo(id);
   }
 
   protected onToggleCompleted(todo: Todo) {
