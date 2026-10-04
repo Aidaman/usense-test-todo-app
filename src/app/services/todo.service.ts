@@ -1,12 +1,16 @@
 import { inject, Service } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Todo, TodoDTO } from '../models/todo';
-import { BehaviorSubject, Observable, switchMap } from 'rxjs';
+import { Todo, CreateTodoDTO } from '../models/todo';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Service()
 export class TodoService {
   private readonly jsonPlaceholderUrl: string = 'https://jsonplaceholder.typicode.com/todos';
   private readonly http: HttpClient = inject(HttpClient);
+
+  // jsonplaceholder.typicode.com does fake the process of creating a new item
+  // Thus the item we get in response always has the same id
+  private localId: number = 1000;
 
   protected readonly todosSubject = new BehaviorSubject<Todo[]>([]);
   public readonly todos$: Observable<Todo[]> = this.todosSubject.asObservable();
@@ -23,10 +27,12 @@ export class TodoService {
     return this.http.get<Todo[]>(`${this.jsonPlaceholderUrl}`).subscribe(todos => this.todosSubject.next(todos));
   }
 
-  public createTodo(newTodo: TodoDTO) {
+  public createTodo(newTodo: CreateTodoDTO) {
     return this.http
-      .post<Todo>(`${this.jsonPlaceholderUrl}/create`, newTodo)
-      .subscribe((todo) => this.todosSubject.next([...this.todosSubject.getValue(), todo]));
+      .post<Todo>(`${this.jsonPlaceholderUrl}`, newTodo)
+      .subscribe((todo) =>
+        this.todosSubject.next([...this.todosSubject.getValue(), { ...todo, id: this.localId++ }]),
+      );
   }
 
   public deleteTodo(id: number) {
