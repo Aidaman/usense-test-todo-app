@@ -4,6 +4,11 @@
   <mat-form-field appearance="outline" class="full-width">
     <mat-label>Todo Title</mat-label>
     <input matInput [formField]="todoForm.title" placeholder="e.g., Buy groceries">
+    @if (todoForm.title().invalid() && todoForm.title().touched()) {
+        @for (error of todoForm.title().errors(); track error.kind) {
+          <mat-error>{{ error.message }}</mat-error>
+        }
+    }
   </mat-form-field>
 
   <mat-form-field appearance="outline" class="full-width">
