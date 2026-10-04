@@ -9,9 +9,7 @@
 
   &__title {
     flex: 1;
-    min-width: 0;
     padding: 0;
-    margin: 0;
 
     font-weight: 400;
     font-size: 16px;
@@ -21,6 +19,29 @@
       text-decoration: line-through;
     }
   }
+
+  &__priority-chip {
+    border-radius: 16px;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 500;
+    margin: 0 0 0 8px;
+    user-select: none;
+
+    &.low-priority {
+      background-color: #00F0A086;
+      border: 1px solid #00F0A0;
+    }
+    &.medium-priority {
+      background-color: #ffdd0086;
+      border: 1px solid #ffdd00;
+    }
+    &.high-priority {
+      background-color: #ff6a0086;
+      border: 1px solid #ff6a00;
+    }
+  }
+
 
   &__completion-check {
     cursor: pointer;
@@ -36,3 +57,4 @@
     }
   }
 }
+

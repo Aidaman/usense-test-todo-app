@@ -2,6 +2,15 @@
   <input class="todo__completion-check" type="checkbox" [(ngModel)]="todo().completed" (ngModelChange)="onToggleCompleted(todo())">
   <p class="todo__title" [ngClass]="{'todo__title--completed': todo().completed}">
     {{ todo().title }}
+    <span class="todo__priority-chip"
+          [ngClass]="{
+            'low-priority': this.todo().priority === 'low',
+            'medium-priority': this.todo().priority === 'medium',
+            'high-priority': this.todo().priority === 'high',
+            }"
+    >
+      {{ todo().priority }}
+    </span>
   </p>
   <div class="todo__actions">
     @if (!todo().completed) {

@@ -1,0 +1,22 @@
+<h2 mat-dialog-title>Create New Todo</h2>
+
+<mat-dialog-content>
+  <mat-form-field appearance="outline"  class="full-width">
+    <mat-label>Todo Title</mat-label>
+    <input matInput [formField]="todoForm.title" placeholder="e.g., Buy groceries">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline"  class="full-width">
+    <mat-label>Priority</mat-label>
+    <mat-select [formField]="todoForm.priority">
+      @for (priority of priorityEnumEntries; track priority) {
+        <mat-option [value]="priority">{{ priority | titlecase }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-flat-button color="primary" [disabled]="todoForm().invalid()" (click)="onSave()">Create</button>
+</mat-dialog-actions>

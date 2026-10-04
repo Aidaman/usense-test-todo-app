@@ -2,7 +2,8 @@ import { inject, Service } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Todo, CreateTodoDTO } from '../models/todo';
 import { BehaviorSubject, map, Observable } from 'rxjs';
-import { CompletedFilter } from '../models/filter.enum';
+import { TodoStatus } from '../models/status.enum';
+import { TodoPriorities } from '../models/priority.enum';
 
 @Service()
 export class TodoService {
@@ -16,19 +17,32 @@ export class TodoService {
   protected readonly todosSubject = new BehaviorSubject<Todo[]>([]);
   public readonly todos$: Observable<Todo[]> = this.todosSubject
     .asObservable()
-    .pipe(map((todos) => this.filterTodos(todos)));
+    .pipe(
+      map((todos) => this.filterTodosByStatus(todos)),
+      map((todos) => this.filterTodosByPriority(todos)),
+    );
 
-  private _completedFilter: CompletedFilter = CompletedFilter.All;
-  public get completedFilter(): CompletedFilter {
+  private _completedFilter: TodoStatus = TodoStatus.All;
+  public get completedFilter(): TodoStatus {
     return this._completedFilter;
   }
-  public set completedFilter(value: CompletedFilter) {
+  public set completedFilter(value: TodoStatus) {
     this._completedFilter = value;
     this.todosSubject.next(this.todosSubject.getValue());
   }
 
+  private _priorityFilter: TodoPriorities = TodoPriorities.All;
+  public get priorityFilter(): TodoPriorities {
+    return this._priorityFilter;
+  }
+  public set priorityFilter(value: TodoPriorities) {
+    this._priorityFilter = value;
+    this.todosSubject.next(this.todosSubject.getValue());
+  }
+
   constructor() {
-    this.getAllTodos();
+    // this.getAllTodos();
+    this.getUserTodos(1);
   }
 
   public getUserTodos(userId: number) {
@@ -69,14 +83,27 @@ export class TodoService {
       );
   }
 
-  public filterTodos(todos: Todo[]): Todo[] {
+  public filterTodosByStatus(todos: Todo[]): Todo[] {
     switch (this.completedFilter) {
-      case CompletedFilter.All:
+      case TodoStatus.All:
         return todos;
-      case CompletedFilter.Done:
+      case TodoStatus.Done:
         return todos.filter((todo) => todo.completed);
-      case CompletedFilter.Active:
+      case TodoStatus.Active:
         return todos.filter((todo) => !todo.completed);
+    }
+  }
+
+  public filterTodosByPriority(todos: Todo[]): Todo[] {
+    switch (this.priorityFilter) {
+      case TodoPriorities.High:
+        return todos.filter((todo) => todo.priority === TodoPriorities.High);
+      case TodoPriorities.Medium:
+        return todos.filter((todo) => todo.priority === TodoPriorities.Medium);
+      case TodoPriorities.Low:
+        return todos.filter((todo) => todo.priority === TodoPriorities.Low);
+      default:
+        return todos;
     }
   }
 }

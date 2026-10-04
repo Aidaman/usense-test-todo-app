@@ -1,24 +1,21 @@
-import { Component, inject, signal } from '@angular/core';
-import { MatIconButton } from '@angular/material/button';
+import { Component, inject } from '@angular/core';
+import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { TodoService } from '../../services/todo.service';
-import { form, FormField } from '@angular/forms/signals';
 import { MatButtonToggle, MatButtonToggleGroup } from '@angular/material/button-toggle';
-import { CompletedFilter } from '../../models/filter.enum';
+import { TodoStatus } from '../../models/status.enum';
 import { TitleCasePipe } from '@angular/common';
-
-interface NewTodoData {
-  title: string;
-}
+import { MatDialog } from '@angular/material/dialog';
+import { CreateTodoModal, NewTodoData } from './create-todo-modal/create-todo-modal';
+import { TodoPriorities } from '../../models/priority.enum';
 
 @Component({
   imports: [
     MatIcon,
-    MatIconButton,
-    FormField,
     MatButtonToggleGroup,
     MatButtonToggle,
     TitleCasePipe,
+    MatButton,
   ],
   selector: 'app-title-bar',
   styleUrl: './title-bar.scss',
@@ -26,17 +23,26 @@ interface NewTodoData {
 })
 export class TitleBar {
   private readonly todoService: TodoService = inject(TodoService);
+  private readonly dialog: MatDialog = inject(MatDialog);
 
-  private readonly todoModel = signal<NewTodoData>({ title: 'New Todo' });
-
-  protected readonly filterEnumEntries = Object.values(CompletedFilter);
-  protected readonly todoForm = form(this.todoModel);
+  protected readonly statusFilterEnumEntries = Object.values(TodoStatus);
+  protected readonly priorityFilterEnumEntries = Object.values(TodoPriorities);
 
   protected onAddTodo(): void {
-    this.todoService.createTodo({ title: this.todoForm.title().value(), userId: 1 });
+    const dialogRef = this.dialog.open(CreateTodoModal, { width: '400px', height: '335px' });
+
+    dialogRef.afterClosed().subscribe((newTodo: NewTodoData) => {
+      if (newTodo) {
+        this.todoService.createTodo({ ...newTodo, userId: 1 });
+      }
+    });
   }
 
-  protected onFilterChange(newFilterValue: CompletedFilter): void {
+  protected onStatusFilterChange(newFilterValue: TodoStatus): void {
     this.todoService.completedFilter = newFilterValue;
+  }
+
+  protected onPriorityFilterChange(newFilterValue: TodoPriorities): void {
+    this.todoService.priorityFilter = newFilterValue;
   }
 }

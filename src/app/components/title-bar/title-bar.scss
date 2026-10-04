@@ -20,6 +20,11 @@
     margin: 0;
   }
 
+  &__filters {
+    display: flex;
+    gap: 8px;
+  }
+
   &__actions {
     display: flex;
     justify-content: flex-end;
