@@ -1,7 +1,6 @@
-import { Component, inject, input, output } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import { TodoService } from '../../services/todo.service';
 import { Todo } from '../../models/todo';
 import { FormsModule } from '@angular/forms';
 import { NgClass } from '@angular/common';
