@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { NgClass } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { TodoEditorDialog } from '../todo-editor-dialog/todo-editor-dialog';
+import { DeleteTodoDialog } from './delete-todo-dialog/delete-todo-dialog';
 
 @Component({
   imports: [MatIconButton, MatIcon, FormsModule, NgClass],
@@ -22,7 +23,13 @@ export class TodoComponent {
   public delete = output<number>();
 
   public onDelete(id: number): void {
-    this.delete.emit(id);
+    const dialogRef = this.dialog.open(DeleteTodoDialog);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.delete.emit(id);
+      }
+    });
   }
 
   public onToggleCompleted(todo: Todo): void {
